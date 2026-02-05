@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organograma Interativo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #fb6f24 0%, #8ca315 50%, #1e6495 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+        }
+
+        .organograma {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .node {
+            background: linear-gradient(135deg, #fb6f24 0%, #8ca315 100%);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            min-width: 180px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .node:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .node.has-children::after {
+            content: '▼';
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .node.has-children.collapsed::after {
+            transform: translateY(-50%) rotate(-90deg);
+        }
+
+        .cargo {
+            font-size: 1em;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .nome {
+            font-size: 0.85em;
+            font-weight: 400;
+            opacity: 0.9;
+            font-style: italic;
+        }
+
+        .estagiario {
+            font-size: 0.75em;
+            opacity: 0.85;
+        }
+
+        /* Fundador - AZUL */
+        .fundador {
+            background: linear-gradient(135deg, #5191c1 0%, #1e6495 100%);
+            font-size: 1.2em;
+            min-width: 200px;
+            color: white;
+        }
+
+        .branch {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .children {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .children.hidden {
+            max-height: 0;
+            opacity: 0;
+            margin: 0;
+            gap: 0;
+        }
+
+        .children.visible {
+            max-height: 5000px;
+            opacity: 1;
+        }
+
+        .horizontal-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .connector {
+            width: 2px;
+            height: 30px;
+            background: linear-gradient(180deg, #5191c1 0%, #fb6f24 100%);
+        }
+
+        /* CEO - laranja/verde */
+        .ceo {
+            background: linear-gradient(135deg, #fb6f24 0%, #8ca315 100%);
+            color: white;
+        }
+
+        /* CTO - laranja/verde */
+        .cto {
+            background: linear-gradient(135deg, #fb6f24 0%, #8ca315 100%);
+            color: white;
+        }
+
+        /* Diretoria Jurídica - laranja/verde */
+        .diretoria {
+            background: linear-gradient(135deg, #fb6f24 0%, #8ca315 100%);
+            color: white;
+        }
+
+        /* Engenharia - laranja/verde */
+        .engenharia {
+            background: linear-gradient(135deg, #fb6f24 0%, #8ca315 100%);
+            color: white;
+        }
+
+        /* Financeiro - laranja/verde */
+        .financeiro {
+            background: linear-gradient(135deg, #fb6f24 0%, #8ca315 100%);
+            color: white;
+        }
+
+        /* Subordinados - laranja/verde */
+        .subordinado {
+            background: linear-gradient(135deg, #fb6f24 0%, #8ca315 100%);
+            color: white;
+            font-size: 0.9em;
+            min-width: 150px;
+        }
+
+        /* Membros de Equipe - laranja/verde */
+        .membro-equipe {
+            background: linear-gradient(135deg, #fb6f24 0%, #8ca315 100%);
+            color: white;
+            font-size: 0.85em;
+            min-width: 130px;
+            padding: 10px 15px;
+        }
+
+        .lideres-principais {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .subordinados-area {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .node {
+                min-width: 140px;
+                padding: 12px 20px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Organograma Interativo</h1>
+        
+        <div class="organograma">
+            
+            <!-- FUNDADOR -->
+            <div class="node fundador has-children collapsed" onclick="toggleChildren('fundador-children')">
+                <div class="cargo">Fundador</div>
+                <div class="nome">José Mauricio</div>
+            </div>
+            
+            <div id="fundador-children" class="children hidden">
+                <div class="connector"></div>
+                
+                <!-- LÍDERES PRINCIPAIS -->
+                <div class="lideres-principais">
+                    
+                    <!-- CEO -->
+                    <div class="node ceo has-children collapsed" onclick="toggleLeader('ceo-children')">
+                        <div class="cargo">CEO</div>
+                        <div class="nome">Fabio Padovani</div>
+                    </div>
+
+                    <!-- CTO -->
+                    <div class="node cto has-children collapsed" onclick="toggleLeader('cto-children')">
+                        <div class="cargo">CTO</div>
+                        <div class="nome">Cauê Vicente</div>
+                    </div>
+
+                    <!-- DIRETORIA JURÍDICA -->
+                    <div class="node diretoria has-children collapsed" onclick="toggleLeader('juridica-children')">
+                        <div class="cargo">Diretoria Jurídica</div>
+                        <div class="nome">Gabriela Deubeck</div>
+                    </div>
+
+                    <!-- ENGENHARIA -->
+                    <div class="node engenharia has-children collapsed" onclick="toggleLeader('engenharia-children')">
+                        <div class="cargo">Engenharia</div>
+                        <div class="nome">Rafael Bozzo | Roberto Santos</div>
+                    </div>
+
+                    <!-- FINANCEIRO -->
+                    <div class="node financeiro">
+                        <div class="cargo">Financeiro</div>
+                        <div class="nome">Djennyffer | Irene Beatriz</div>
+                    </div>
+
+                    <!-- ADM/RH -->
+                    <div class="node financeiro">
+                        <div class="cargo">ADM/RH</div>
+                        <div class="nome">Giovana</div>
+                    </div>
+                </div>
+
+                <!-- SUBORDINADOS DO CEO -->
+                <div id="ceo-children" class="children hidden">
+                    <div class="subordinados-area">
+                        <div class="horizontal-group">
+                            
+                            <!-- INTELIGÊNCIA DE DADOS -->
+                            <div class="branch">
+                                <div class="node subordinado has-children collapsed" onclick="toggleChildren('inteligencia-children')">
+                                    <div class="cargo">Inteligência de Dados</div>
+                                    <div class="nome">Julio (Líder)</div>
+                                </div>
+                                <div id="inteligencia-children" class="children hidden">
+                                    <div class="connector"></div>
+                                    <div class="horizontal-group">
+                                        <div class="node membro-equipe">
+                                            <div class="nome">Arthur</div>
+                                        </div>
+                                        <div class="node membro-equipe">
+                                            <div class="nome">Eduardo</div>
+                                        </div>
+                                        <div class="node membro-equipe">
+                                            <div class="nome">Juliana</div>
+                                        </div>
+                                        <div class="node membro-equipe">
+                                            <div class="nome">Rafael</div>
+                                        </div>
+                                        <div class="node membro-equipe">
+                                            <div class="nome">Wilbson</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- OPERAÇÃO -->
+                            <div class="branch">
+                                <div class="node subordinado has-children collapsed" onclick="toggleChildren('operacao-children')">
+                                    <div class="cargo">Operação</div>
+                                    <div class="nome">Andrea (Líder)</div>
+                                </div>
+                                <div id="operacao-children" class="children hidden">
+                                    <div class="connector"></div>
+                                    <div class="horizontal-group">
+                                        <div class="node membro-equipe">
+                                            <div class="nome">Alessandra</div>
+                                        </div>
+                                        <div class="node membro-equipe">
+                                            <div class="nome">Emily</div>
+                                        </div>
+                                        <div class="node membro-equipe">
+                                            <div class="nome">José Victor</div>
+                                        </div>
+                                        <div class="node membro-equipe">
+                                            <div class="nome">Juliana Henriques</div>
+                                        </div>
+                                        <div class="node membro-equipe">
+                                            <div class="nome">Laryssa</div>
+                                        </div>
+                                        <div class="node membro-equipe">
+                                            <div class="nome">Lucas</div>
+                                        </div>
+                                        <div class="node membro-equipe">
+                                            <div class="nome">Ludmila</div>
+                                        </div>
+                                        <div class="node membro-equipe">
+                                            <div class="nome">Marta</div>
+                                        </div>
+                                        <div class="node membro-equipe">
+                                            <div class="nome">Paola</div>
+                                        </div>
+                                        <div class="node membro-equipe">
+                                            <div class="nome">Rosangela</div>
+                                        </div>
+                                        <div class="node membro-equipe">
+                                            <div class="nome">Sabrina</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBORDINADOS DO CTO -->
+                <div id="cto-children" class="children hidden">
+                    <div class="subordinados-area">
+                        <div class="horizontal-group">
+                            
+                            <!-- Supervisor O&M -->
+                            <div class="branch">
+                                <div class="node subordinado has-children collapsed" onclick="toggleChildren('supervisor-children')">
+                                    <div class="cargo">Supervisor de O&M</div>
+                                    <div class="nome">Thiago Dantas</div>
+                                </div>
+                                <div id="supervisor-children" class="children hidden">
+                                    <div class="connector"></div>
+                                    
+                                    <!-- Linha horizontal com os 4 cargos -->
+                                    <div class="horizontal-group">
+                                        
+                                        <!-- Engenheiro Eletricista -->
+                                        <div class="node subordinado">
+                                            <div class="cargo">Engenheiro Eletricista</div>
+                                            <div class="nome">André Silveira</div>
+                                        </div>
+                                        
+                                        <!-- Técnico Eletricista -->
+                                        <div class="node subordinado">
+                                            <div class="cargo">Técnico Eletricista</div>
+                                            <div class="nome">Cleverson</div>
+                                        </div>
+                                        
+                                        <!-- Mantenedores -->
+                                        <div class="node subordinado has-children collapsed" onclick="toggleChildren('mantenedores-children')">
+                                            <div class="cargo">Mantenedores</div>
+                                            <div class="nome">(9 pessoas)</div>
+                                        </div>
+
+                                        <!-- Vigias -->
+                                        <div class="node subordinado has-children collapsed" onclick="toggleChildren('vigias-children')">
+                                            <div class="cargo">Vigias</div>
+                                            <div class="nome">(2 pessoas)</div>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                    <!-- Equipes dos Mantenedores -->
+                                    <div id="mantenedores-children" class="children hidden">
+                                        <div class="horizontal-group">
+                                            <div class="node membro-equipe">
+                                                <div class="nome">Mantenedor 1</div>
+                                            </div>
+                                            <div class="node membro-equipe">
+                                                <div class="nome">Mantenedor 2</div>
+                                            </div>
+                                            <div class="node membro-equipe">
+                                                <div class="nome">Mantenedor 3</div>
+                                            </div>
+                                            <div class="node membro-equipe">
+                                                <div class="nome">Mantenedor 4</div>
+                                            </div>
+                                            <div class="node membro-equipe">
+                                                <div class="nome">Mantenedor 5</div>
+                                            </div>
+                                            <div class="node membro-equipe">
+                                                <div class="nome">Mantenedor 6</div>
+                                            </div>
+                                            <div class="node membro-equipe">
+                                                <div class="nome">Mantenedor 7</div>
+                                            </div>
+                                            <div class="node membro-equipe">
+                                                <div class="nome">Mantenedor 8</div>
+                                            </div>
+                                            <div class="node membro-equipe">
+                                                <div class="nome">Mantenedor 9</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Equipes dos Vigias -->
+                                    <div id="vigias-children" class="children hidden">
+                                        <div class="horizontal-group">
+                                            <div class="node membro-equipe">
+                                                <div class="nome">Vigia 1</div>
+                                            </div>
+                                            <div class="node membro-equipe">
+                                                <div class="nome">Vigia 2</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+
+                            <!-- Team Leader -->
+                            <div class="branch">
+                                <div class="node subordinado has-children collapsed" onclick="toggleChildren('teamleader-children')">
+                                    <div class="cargo">Team Leader</div>
+                                    <div class="nome">Luiz Maciel</div>
+                                </div>
+                                <div id="teamleader-children" class="children hidden">
+                                    <div class="connector"></div>
+                                    <div class="horizontal-group">
+                                        <div class="node membro-equipe">
+                                            <div class="cargo">Analista de Dev</div>
+                                            <div class="nome">Gerliano</div>
+                                        </div>
+                                        <div class="node membro-equipe">
+                                            <div class="cargo">Analista de Dev</div>
+                                            <div class="nome">Helicon</div>
+                                        </div>
+                                        <div class="node membro-equipe">
+                                            <div class="cargo">Analista de Dev</div>
+                                            <div class="nome">Stephanie</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Data Analyst -->
+                            <div class="branch">
+                                <div class="node subordinado">
+                                    <div class="cargo">Data Analyst</div>
+                                    <div class="nome">Miguel</div>
+                                </div>
+                            </div>
+
+                            <!-- Produtos -->
+                            <div class="branch">
+                                <div class="node subordinado">
+                                    <div class="cargo">Produtos</div>
+                                    <div class="nome">Henrique</div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBORDINADOS DA DIRETORIA JURÍDICA -->
+                <div id="juridica-children" class="children hidden">
+                    <div class="subordinados-area">
+                        <div class="horizontal-group">
+                            <div class="node subordinado">
+                                <div class="cargo">Jurídico</div>
+                                <div class="nome">Livia Fada</div>
+                            </div>
+                            <div class="node subordinado">
+                                <div class="cargo">Estagiária Jurídica</div>
+                                <div class="nome">Mariana</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBORDINADOS DA ENGENHARIA -->
+                <div id="engenharia-children" class="children hidden">
+                    <div class="subordinados-area">
+                        <div class="horizontal-group">
+                            <div class="node subordinado">
+                                <div class="cargo">Gerente de Projetos</div>
+                                <div class="nome">Juliana Franco</div>
+                            </div>
+                            <div class="node subordinado">
+                                <div class="cargo">Engenheiro Ambiental</div>
+                                <div class="nome">Vagner</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleLeader(childrenId) {
+            event.stopPropagation();
+            
+            const childrenElement = document.getElementById(childrenId);
+            const parentNode = event.currentTarget;
+            
+            const allLeaderChildren = ['ceo-children', 'cto-children', 'juridica-children', 'engenharia-children'];
+            const allLeaderNodes = document.querySelectorAll('.lideres-principais .node.has-children');
+            
+            allLeaderChildren.forEach(id => {
+                if (id !== childrenId) {
+                    const element = document.getElementById(id);
+                    if (element && element.classList.contains('visible')) {
+                        element.classList.remove('visible');
+                        element.classList.add('hidden');
+                    }
+                }
+            });
+            
+            allLeaderNodes.forEach(node => {
+                if (node !== parentNode) {
+                    node.classList.add('collapsed');
+                }
+            });
+            
+            if (childrenElement.classList.contains('visible')) {
+                childrenElement.classList.remove('visible');
+                childrenElement.classList.add('hidden');
+                parentNode.classList.add('collapsed');
+            } else {
+                childrenElement.classList.remove('hidden');
+                childrenElement.classList.add('visible');
+                parentNode.classList.remove('collapsed');
+            }
+        }
+
+        function toggleChildren(childrenId) {
+            event.stopPropagation();
+            
+            const childrenElement = document.getElementById(childrenId);
+            const parentNode = event.currentTarget;
+            
+            if (childrenElement.classList.contains('visible')) {
+                childrenElement.classList.remove('visible');
+                childrenElement.classList.add('hidden');
+                parentNode.classList.add('collapsed');
+            } else {
+                childrenElement.classList.remove('hidden');
+                childrenElement.classList.add('visible');
+                parentNode.classList.remove('collapsed');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Organograma carregado! Clique no Fundador e depois nos líderes.');
+        });
+    </script>
+</body>
+</html>
