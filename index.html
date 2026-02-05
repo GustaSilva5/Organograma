@@ -87,6 +87,12 @@
             font-style: italic;
         }
 
+        .local {
+            font-size: 0.75em;
+            opacity: 0.8;
+            margin-top: 3px;
+        }
+
         .estagiario {
             font-size: 0.75em;
             opacity: 0.85;
@@ -134,6 +140,7 @@
             gap: 15px;
             flex-wrap: wrap;
             justify-content: center;
+            align-items: flex-start;
         }
 
         .connector {
@@ -255,7 +262,7 @@
 
                     <!-- DIRETORIA JURÍDICA -->
                     <div class="node diretoria has-children collapsed" onclick="toggleLeader('juridica-children')">
-                        <div class="cargo">Diretoria Jurídica</div>
+                        <div class="cargo">Diretora Jurídica</div>
                         <div class="nome">Gabriela Deubeck</div>
                     </div>
 
@@ -365,92 +372,6 @@
                 <div id="cto-children" class="children hidden">
                     <div class="subordinados-area">
                         <div class="horizontal-group">
-                            
-                            <!-- Supervisor O&M -->
-                            <div class="branch">
-                                <div class="node subordinado has-children collapsed" onclick="toggleChildren('supervisor-children')">
-                                    <div class="cargo">Supervisor de O&M</div>
-                                    <div class="nome">Thiago Dantas</div>
-                                </div>
-                                <div id="supervisor-children" class="children hidden">
-                                    <div class="connector"></div>
-                                    
-                                    <!-- Linha horizontal com os 4 cargos -->
-                                    <div class="horizontal-group">
-                                        
-                                        <!-- Engenheiro Eletricista -->
-                                        <div class="node subordinado">
-                                            <div class="cargo">Engenheiro Eletricista</div>
-                                            <div class="nome">André Silveira</div>
-                                        </div>
-                                        
-                                        <!-- Técnico Eletricista -->
-                                        <div class="node subordinado">
-                                            <div class="cargo">Técnico Eletricista</div>
-                                            <div class="nome">Cleverson</div>
-                                        </div>
-                                        
-                                        <!-- Mantenedores -->
-                                        <div class="node subordinado has-children collapsed" onclick="toggleChildren('mantenedores-children')">
-                                            <div class="cargo">Mantenedores</div>
-                                            <div class="nome">(9 pessoas)</div>
-                                        </div>
-
-                                        <!-- Vigias -->
-                                        <div class="node subordinado has-children collapsed" onclick="toggleChildren('vigias-children')">
-                                            <div class="cargo">Vigias</div>
-                                            <div class="nome">(2 pessoas)</div>
-                                        </div>
-                                        
-                                    </div>
-                                    
-                                    <!-- Equipes dos Mantenedores -->
-                                    <div id="mantenedores-children" class="children hidden">
-                                        <div class="horizontal-group">
-                                            <div class="node membro-equipe">
-                                                <div class="nome">Mantenedor 1</div>
-                                            </div>
-                                            <div class="node membro-equipe">
-                                                <div class="nome">Mantenedor 2</div>
-                                            </div>
-                                            <div class="node membro-equipe">
-                                                <div class="nome">Mantenedor 3</div>
-                                            </div>
-                                            <div class="node membro-equipe">
-                                                <div class="nome">Mantenedor 4</div>
-                                            </div>
-                                            <div class="node membro-equipe">
-                                                <div class="nome">Mantenedor 5</div>
-                                            </div>
-                                            <div class="node membro-equipe">
-                                                <div class="nome">Mantenedor 6</div>
-                                            </div>
-                                            <div class="node membro-equipe">
-                                                <div class="nome">Mantenedor 7</div>
-                                            </div>
-                                            <div class="node membro-equipe">
-                                                <div class="nome">Mantenedor 8</div>
-                                            </div>
-                                            <div class="node membro-equipe">
-                                                <div class="nome">Mantenedor 9</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <!-- Equipes dos Vigias -->
-                                    <div id="vigias-children" class="children hidden">
-                                        <div class="horizontal-group">
-                                            <div class="node membro-equipe">
-                                                <div class="nome">Vigia 1</div>
-                                            </div>
-                                            <div class="node membro-equipe">
-                                                <div class="nome">Vigia 2</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                            </div>
 
                             <!-- Team Leader -->
                             <div class="branch">
@@ -516,16 +437,119 @@
                 <!-- SUBORDINADOS DA ENGENHARIA -->
                 <div id="engenharia-children" class="children hidden">
                     <div class="subordinados-area">
+                        <!-- 3 setores em linha horizontal -->
                         <div class="horizontal-group">
+                            
+                            <!-- Gerente de Projetos -->
                             <div class="node subordinado">
                                 <div class="cargo">Gerente de Projetos</div>
                                 <div class="nome">Juliana Franco</div>
                             </div>
+                            
+                            <!-- Engenheiro Ambiental -->
                             <div class="node subordinado">
                                 <div class="cargo">Engenheiro Ambiental</div>
                                 <div class="nome">Vagner</div>
                             </div>
+
+                            <!-- Supervisor O&M -->
+                            <div class="node subordinado has-children collapsed" onclick="toggleChildren('supervisor-children')">
+                                <div class="cargo">Supervisor de O&M</div>
+                                <div class="nome">Thiago Dantas</div>
+                            </div>
+
                         </div>
+                    </div>
+
+                    <!-- Equipe do Supervisor O&M -->
+                    <div id="supervisor-children" class="children hidden">
+                        <div class="connector"></div>
+                        
+                        <!-- Linha horizontal com os 4 cargos -->
+                        <div class="horizontal-group">
+                            
+                            <!-- Engenheiro Eletricista -->
+                            <div class="node subordinado">
+                                <div class="cargo">Engenheiro Eletricista</div>
+                                <div class="nome">André Silveira</div>
+                            </div>
+                            
+                            <!-- Técnico Eletricista -->
+                            <div class="node subordinado">
+                                <div class="cargo">Técnico Eletricista</div>
+                                <div class="nome">Cleverson</div>
+                            </div>
+                            
+                            <!-- Mantenedores -->
+                            <div class="node subordinado has-children collapsed" onclick="toggleChildren('mantenedores-children')">
+                                <div class="cargo">Mantenedores</div>
+                            </div>
+
+                            <!-- Vigias -->
+                            <div class="node subordinado has-children collapsed" onclick="toggleChildren('vigias-children')">
+                                <div class="cargo">Vigias</div>
+                            </div>
+                            
+                        </div>
+                        
+                        <!-- Equipes dos Mantenedores -->
+                        <div id="mantenedores-children" class="children hidden">
+                            <div class="horizontal-group">
+                                <div class="node membro-equipe">
+                                    <div class="nome">Acir</div>
+                                    <div class="local">ANGRA</div>
+                                </div>
+                                <div class="node membro-equipe">
+                                    <div class="nome">Reydner</div>
+                                    <div class="local">ANGRA</div>
+                                </div>
+                                <div class="node membro-equipe">
+                                    <div class="nome">Geraldo</div>
+                                    <div class="local">FOTONS</div>
+                                </div>
+                                <div class="node membro-equipe">
+                                    <div class="nome">Antonio</div>
+                                    <div class="local">JBT</div>
+                                </div>
+                                <div class="node membro-equipe">
+                                    <div class="nome">Genivaldo</div>
+                                    <div class="local">JBT</div>
+                                </div>
+                                <div class="node membro-equipe">
+                                    <div class="nome">João Vitor</div>
+                                    <div class="local">JBT</div>
+                                </div>
+                                <div class="node membro-equipe">
+                                    <div class="nome">Pablo</div>
+                                    <div class="local">JBT</div>
+                                </div>
+                                <div class="node membro-equipe">
+                                    <div class="nome">Rhilley</div>
+                                    <div class="local">JBT</div>
+                                </div>
+                                <div class="node membro-equipe">
+                                    <div class="nome">Anthony</div>
+                                    <div class="local">PARAMIRIM</div>
+                                </div>
+                                <div class="node membro-equipe">
+                                    <div class="nome">Robson</div>
+                                    <div class="local">PARAMIRIM</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Equipes dos Vigias -->
+                        <div id="vigias-children" class="children hidden">
+                            <div class="horizontal-group">
+                                <div class="node membro-equipe">
+                                    <div class="nome">Erneles</div>
+                                </div>
+                                <div class="node membro-equipe">
+                                    <div class="nome">Jorge</div>
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
 
