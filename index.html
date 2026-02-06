@@ -145,6 +145,11 @@
             opacity: 1;
         }
 
+        /* ALINHAMENTO ESPECÍFICO PARA CEO - À ESQUERDA */
+        #ceo-children {
+            align-items: flex-start; /* Alinha à esquerda */
+        }
+
         .horizontal-group {
             display: flex;
             gap: 30px;
@@ -155,14 +160,324 @@
             padding-top: 40px;
         }
 
-        /* Linha horizontal conectando irmãos */
-        .horizontal-group::before {
+        /* ========================================
+           CONECTORES VERTICAIS POR SETOR
+           ======================================== */
+
+        /* Conector padrão (base) */
+        .connector {
+            width: 3px;
+            height: 40px;
+            background: #fb6f24;
+            margin: 0 auto;
+        }
+
+        /* 1. Conector do Fundador */
+        .connector-fundador {
+            width: 3px;
+            height: 40px;
+            background: #fb6f24;
+            margin: 0 auto;
+        }
+
+        /* 2. Conector do CEO - ALINHADO À ESQUERDA */
+        .connector-ceo {
+            width: 3px;
+            height: 40px;
+            background: #fb6f24;
+            margin: 0; /* Remove margin auto */
+            margin-left: 190px; /* Ajuste manual para alinhar com primeiro card */
+        }
+
+        /* 3. Conector da Inteligência de Dados */
+        .connector-inteligencia {
+            width: 3px;
+            height: 40px;
+            background: #fb6f24;
+            margin: 0 auto;
+        }
+
+        /* 4. Conector da Operação */
+        .connector-operacao {
+            width: 3px;
+            height: 40px;
+            background: #fb6f24;
+            margin: 0 auto;
+        }
+
+        /* 5. Conector do CTO */
+        .connector-cto {
+            width: 3px;
+            height: 40px;
+            background: #fb6f24;
+            margin: 0;
+            margin-left: 89px;
+        }
+
+        /* 6. Conector do Team Leader */
+        .connector-teamleader {
+            width: 3px;
+            height: 40px;
+            background: #fb6f24;
+            margin: 0 auto;
+        }
+
+        /* 7. Conector da Jurídica */
+        .connector-juridica {
+            width: 3px;
+            height: 40px;
+            background: #fb6f24;
+            margin: 0;
+            margin-left: 89px;
+        }
+
+        /* 8. Conector da Engenharia */
+        .connector-engenharia {
+            width: 3px;
+            height: 40px;
+            background: #fb6f24;
+            margin: 0;
+            margin-left: 89px;
+        }
+
+        /* 9. Conector do Supervisor O&M */
+        .connector-supervisor {
+            width: 3px;
+            height: 40px;
+            background: #fb6f24;
+            margin: 0 auto;
+        }
+
+        /* 10. Conector dos Mantenedores */
+        .connector-mantenedores {
+            width: 3px;
+            height: 40px;
+            background: #fb6f24;
+            margin: 0 auto;
+        }
+
+        /* 11. Conector dos Vigias */
+        .connector-vigias {
+            width: 3px;
+            height: 40px;
+            background: #fb6f24;
+            margin: 0 auto;
+        }
+
+        /* ========================================
+           LINHAS CONECTORAS POR EQUIPE
+           ======================================== */
+
+        /* 1. Líderes Principais (CEO, CTO, Jurídica, Engenharia, Financeiro, ADM/RH) */
+        .lideres-principais::before {
             content: '';
             position: absolute;
             top: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 80%;
+            width: 81.5%;
+            height: 3px;
+            background: #fb6f24;
+            z-index: 1;
+        }
+
+        /* 2. Subordinados do CEO (Inteligência + Operação) */
+        .grupo-subordinados-ceo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 53%;
+            transform: translateX(-50%);
+            width: 55%;
+            height: 3px;
+            background: #fb6f24;
+            z-index: 1;
+        }
+
+        /* 3. Equipe Inteligência de Dados (5 membros) */
+        .grupo-inteligencia::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 83%;
+            height: 3px;
+            background: #fb6f24;
+            z-index: 1;
+        }
+
+        /* 4. Equipe Operação (11 membros) - ESPAÇAMENTO REDUZIDO */
+        .grupo-operacao {
+            flex-wrap: nowrap !important;
+            overflow-x: auto;
+            overflow-y: visible;
+            max-width: 100%;
+            padding-bottom: 10px;
+            gap: 12px !important;
+        }
+
+        .grupo-operacao::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 92%;
+            height: 3px;
+            background: #fb6f24;
+            z-index: 1;
+        }
+
+        /* Cards menores e mais compactos para Operação */
+        .grupo-operacao .membro-equipe {
+            min-width: 110px !important;
+            padding: 8px 12px !important;
+            flex-shrink: 0;
+            font-size: 0.8em !important;
+        }
+
+        /* Scrollbar personalizada para Operação */
+        .grupo-operacao::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .grupo-operacao::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .grupo-operacao::-webkit-scrollbar-thumb {
+            background: #fb6f24;
+            border-radius: 10px;
+        }
+
+        .grupo-operacao::-webkit-scrollbar-thumb:hover {
+            background: #e05515;
+        }
+
+        /* 5. Subordinados do CTO (Team Leader + Data Analyst + Produtos) */
+        .grupo-subordinados-cto::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 59%;
+            transform: translateX(-50%);
+            width: 63%;
+            height: 3px;
+            background: #fb6f24;
+            z-index: 1;
+        }
+
+        /* 6. Equipe Team Leader (3 analistas) */
+        .grupo-teamleader::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 71%;
+            height: 3px;
+            background: #fb6f24;
+            z-index: 1;
+        }
+
+        /* 7. Subordinados Jurídica (2 membros) */
+        .grupo-juridica::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 48%;
+            transform: translateX(-50%);
+            width: 55%;
+            height: 3px;
+            background: #fb6f24;
+            z-index: 1;
+        }
+
+        /* 8. Subordinados Engenharia - 3 setores principais */
+        .grupo-engenharia-setores::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 71%;
+            height: 3px;
+            background: #fb6f24;
+            z-index: 1;
+        }
+
+        /* 9. Subordinados Supervisor O&M (4 cargos) */
+        .grupo-supervisor-om::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 51.5%;
+            transform: translateX(-50%);
+            width: 77%;
+            height: 3px;
+            background: #fb6f24;
+            z-index: 1;
+        }
+
+        /* 10. Equipe Mantenedores (10 pessoas) - UMA LINHA HORIZONTAL */
+        .grupo-mantenedores {
+            flex-wrap: nowrap !important;
+            overflow-x: auto;
+            overflow-y: visible;
+            max-width: 100%;
+            padding-bottom: 10px;
+            gap: 12px !important;
+        }
+
+        .grupo-mantenedores::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 91%;
+            height: 3px;
+            background: #fb6f24;
+            z-index: 1;
+        }
+
+        /* Cards menores e mais compactos para Mantenedores */
+        .grupo-mantenedores .membro-equipe {
+            min-width: 110px !important;
+            padding: 8px 12px !important;
+            flex-shrink: 0;
+            font-size: 0.8em !important;
+        }
+
+        /* Scrollbar personalizada para Mantenedores */
+        .grupo-mantenedores::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .grupo-mantenedores::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .grupo-mantenedores::-webkit-scrollbar-thumb {
+            background: #fb6f24;
+            border-radius: 10px;
+        }
+
+        .grupo-mantenedores::-webkit-scrollbar-thumb:hover {
+            background: #e05515;
+        }
+
+        /* 11. Equipe Vigias (2 pessoas) */
+        .grupo-vigias::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 55%;
             height: 3px;
             background: #fb6f24;
             z-index: 1;
@@ -184,13 +499,6 @@
             height: 40px;
             background: #fb6f24;
             transform: translateX(-50%);
-        }
-
-        .connector {
-            width: 3px;
-            height: 40px;
-            background: #fb6f24;
-            margin: 0 auto;
         }
 
         /* CEO - laranja/verde */
@@ -252,18 +560,6 @@
             padding-top: 40px;
         }
 
-        /* Linha horizontal conectando líderes */
-        .lideres-principais::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80%;
-            height: 3px;
-            background: #fb6f24;
-        }
-
         /* Linhas verticais para cada líder */
         .lideres-principais > .node {
             position: relative;
@@ -283,8 +579,51 @@
         .subordinados-area {
             width: 100%;
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: flex-start;
+        }
+
+        /* ========================================
+           FOOTER COM TOTAL DE FUNCIONÁRIOS - COMPACTO E À DIREITA
+           ======================================== */
+        
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #fb6f24;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .footer-card {
+            background: linear-gradient(135deg, #fb6f24 0%, #8ca315 100%);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .footer-card .total-number {
+            font-size: 1.8em;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .footer-card .total-label {
+            font-size: 0.9em;
+            font-weight: 500;
+            opacity: 0.95;
         }
 
         @media (max-width: 768px) {
@@ -305,6 +644,54 @@
             .horizontal-group {
                 flex-wrap: wrap;
             }
+
+            /* Mantém operação sem wrap mesmo em mobile */
+            .grupo-operacao {
+                flex-wrap: nowrap !important;
+                gap: 8px !important;
+            }
+
+            .grupo-operacao .membro-equipe {
+                min-width: 95px !important;
+                padding: 6px 10px !important;
+                font-size: 0.75em !important;
+            }
+
+            /* Mantém mantenedores sem wrap mesmo em mobile */
+            .grupo-mantenedores {
+                flex-wrap: nowrap !important;
+                gap: 8px !important;
+            }
+
+            .grupo-mantenedores .membro-equipe {
+                min-width: 95px !important;
+                padding: 6px 10px !important;
+                font-size: 0.75em !important;
+            }
+
+            .footer {
+                justify-content: center;
+            }
+
+            .footer-card {
+                padding: 10px 18px;
+            }
+
+            .footer-card .total-number {
+                font-size: 1.5em;
+            }
+
+            .footer-card .total-label {
+                font-size: 0.8em;
+            }
+
+            /* Ajuste dos conectores em mobile */
+            .connector-ceo,
+            .connector-cto,
+            .connector-juridica,
+            .connector-engenharia {
+                margin-left: 70px;
+            }
         }
     </style>
 </head>
@@ -321,7 +708,7 @@
             </div>
             
             <div id="fundador-children" class="children hidden">
-                <div class="connector"></div>
+                <div class="connector connector-fundador"></div>
                 
                 <!-- LÍDERES PRINCIPAIS -->
                 <div class="lideres-principais">
@@ -341,7 +728,7 @@
                     <!-- DIRETORIA JURÍDICA -->
                     <div class="node diretoria has-children collapsed" onclick="toggleLeader('juridica-children')">
                         <div class="cargo">Diretora Jurídica</div>
-                        <div class="nome">Gabriela Deubeck</div>
+                        <div class="nome">Gabriela Doubeck</div>
                     </div>
 
                     <!-- ENGENHARIA -->
@@ -365,9 +752,9 @@
 
                 <!-- SUBORDINADOS DO CEO -->
                 <div id="ceo-children" class="children hidden">
-                    <div class="connector"></div>
+                    <div class="connector connector-ceo"></div>
                     <div class="subordinados-area">
-                        <div class="horizontal-group">
+                        <div class="horizontal-group grupo-subordinados-ceo">
                             
                             <!-- INTELIGÊNCIA DE DADOS -->
                             <div class="node subordinado has-children collapsed" onclick="toggleChildren('inteligencia-children')">
@@ -386,8 +773,8 @@
 
                     <!-- Equipe Inteligência de Dados -->
                     <div id="inteligencia-children" class="children hidden">
-                        <div class="connector"></div>
-                        <div class="horizontal-group">
+                        <div class="connector connector-inteligencia"></div>
+                        <div class="horizontal-group grupo-inteligencia">
                             <div class="node membro-equipe">
                                 <div class="nome">Arthur</div>
                             </div>
@@ -408,8 +795,11 @@
 
                     <!-- Equipe Operação -->
                     <div id="operacao-children" class="children hidden">
-                        <div class="connector"></div>
-                        <div class="horizontal-group">
+                        <div class="connector connector-operacao"></div>
+                        <div class="horizontal-group grupo-operacao">
+                            <div class="node membro-equipe">
+                                <div class="nome">Juliana Henriques</div>
+                            </div>
                             <div class="node membro-equipe">
                                 <div class="nome">Alessandra</div>
                             </div>
@@ -418,9 +808,6 @@
                             </div>
                             <div class="node membro-equipe">
                                 <div class="nome">José Victor</div>
-                            </div>
-                            <div class="node membro-equipe">
-                                <div class="nome">Juliana Henriques</div>
                             </div>
                             <div class="node membro-equipe">
                                 <div class="nome">Laryssa</div>
@@ -449,9 +836,9 @@
 
                 <!-- SUBORDINADOS DO CTO -->
                 <div id="cto-children" class="children hidden">
-                    <div class="connector"></div>
+                    <div class="connector connector-cto"></div>
                     <div class="subordinados-area">
-                        <div class="horizontal-group">
+                        <div class="horizontal-group grupo-subordinados-cto">
 
                             <!-- Team Leader -->
                             <div class="branch">
@@ -460,8 +847,8 @@
                                     <div class="nome">Luiz Maciel</div>
                                 </div>
                                 <div id="teamleader-children" class="children hidden">
-                                    <div class="connector"></div>
-                                    <div class="horizontal-group">
+                                    <div class="connector connector-teamleader"></div>
+                                    <div class="horizontal-group grupo-teamleader">
                                         <div class="node membro-equipe">
                                             <div class="cargo">Analista de Dev</div>
                                             <div class="nome">Gerliano</div>
@@ -500,9 +887,9 @@
 
                 <!-- SUBORDINADOS DA DIRETORIA JURÍDICA -->
                 <div id="juridica-children" class="children hidden">
-                    <div class="connector"></div>
+                    <div class="connector connector-juridica"></div>
                     <div class="subordinados-area">
-                        <div class="horizontal-group">
+                        <div class="horizontal-group grupo-juridica">
                             <div class="node subordinado">
                                 <div class="cargo">Jurídico</div>
                                 <div class="nome">Livia Fada</div>
@@ -517,10 +904,10 @@
 
                 <!-- SUBORDINADOS DA ENGENHARIA -->
                 <div id="engenharia-children" class="children hidden">
-                    <div class="connector"></div>
+                    <div class="connector connector-engenharia"></div>
                     <div class="subordinados-area">
                         <!-- 3 setores em linha horizontal -->
-                        <div class="horizontal-group">
+                        <div class="horizontal-group grupo-engenharia-setores">
                             
                             <!-- Gerente de Projetos -->
                             <div class="node subordinado">
@@ -545,10 +932,10 @@
 
                     <!-- Equipe do Supervisor O&M -->
                     <div id="supervisor-children" class="children hidden">
-                        <div class="connector"></div>
+                        <div class="connector connector-supervisor"></div>
                         
                         <!-- Linha horizontal com os 4 cargos -->
-                        <div class="horizontal-group">
+                        <div class="horizontal-group grupo-supervisor-om">
                             
                             <!-- Engenheiro Eletricista -->
                             <div class="node subordinado">
@@ -578,8 +965,8 @@
                         
                         <!-- Equipes dos Mantenedores -->
                         <div id="mantenedores-children" class="children hidden">
-                            <div class="connector"></div>
-                            <div class="horizontal-group">
+                            <div class="connector connector-mantenedores"></div>
+                            <div class="horizontal-group grupo-mantenedores">
                                 <div class="node membro-equipe">
                                     <div class="nome">Acir</div>
                                     <div class="local">ANGRA</div>
@@ -625,8 +1012,8 @@
                         
                         <!-- Equipes dos Vigias -->
                         <div id="vigias-children" class="children hidden">
-                            <div class="connector"></div>
-                            <div class="horizontal-group">
+                            <div class="connector connector-vigias"></div>
+                            <div class="horizontal-group grupo-vigias">
                                 <div class="node membro-equipe">
                                     <div class="nome">Erneles</div>
                                 </div>
@@ -641,6 +1028,15 @@
 
             </div>
         </div>
+
+        <!-- FOOTER COM TOTAL DE FUNCIONÁRIOS - COMPACTO À DIREITA -->
+        <div class="footer">
+            <div class="footer-card">
+                <div class="total-number">52</div>
+                <div class="total-label">👥 Colaboradores</div>
+            </div>
+        </div>
+
     </div>
 
     <script>
